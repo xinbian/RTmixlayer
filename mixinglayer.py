@@ -10,12 +10,27 @@ import numpy as np
 import pylab
 import matplotlib.pyplot as plt
 import os
+import os.path
 
+curfilePath = os.path.abspath(__file__)
+curDir = os.path.abspath(os.path.join(curfilePath,os.pardir))
+parentDir = os.path.abspath(os.path.join(curDir,os.pardir)) 
 gamma=0.8
 totalsteps=839625;
 specout=1000;
 variable = ['Prho']
 h5file = h5py.File('tests_single_new.h5','r+')
+
+delimiter = ''
+#read dataset dimensions
+mylist = ['Fields/','Prho','/','002000']
+filepath = delimiter.join(mylist)
+databk = h5file.get(filepath)
+m1 = np.array(databk)
+nz=m1.shape[0]
+ny=m1.shape[1]
+nx=m1.shape[2]
+
 
 rho_avr=np.zeros(nz, dtype=np.float64)       
 #os.remove("rho1d.txt")
